@@ -3,26 +3,39 @@
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <title>Terminal Simulator</title>
   <!-- xterm.js styles -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/xterm@5.2.0/css/xterm.css" />
   <style>
-    body, html {
-      height: 100%;
+    /* Reset & box-sizing */
+    *, *::before, *::after {
+      box-sizing: border-box;
       margin: 0;
+      padding: 0;
+    }
+    html, body {
+      height: 100%;
       background: #1e1e1e;
       display: flex;
       justify-content: center;
       align-items: center;
+      font-family: sans-serif;
     }
     #terminal {
-      width: 80%;
+      width: 90vw;
       max-width: 800px;
-      height: 400px;
+      height: 60vh;
+      max-height: 600px;
       border-radius: 8px;
       overflow: hidden;
       box-shadow: 0 0 20px rgba(0,0,0,0.5);
+    }
+    @media (max-width: 600px) {
+      #terminal {
+        width: 95vw;
+        height: 50vh;
+      }
     }
   </style>
 </head>
@@ -37,29 +50,24 @@
       cursorBlink: true,
       fontFamily: 'monospace',
       fontSize: 14,
-      theme: {
-        background: '#1e1e1e',
-        foreground: '#ffffff'
-      }
+      theme: { background: '#1e1e1e', foreground: '#ffffff' }
     });
     term.open(document.getElementById('terminal'));
 
-    // Content to simulate typing
+    // Simulated welcome text
     const lines = [
-      'Welcome to the web terminal simulator!',
+      'Welcome to the responsive web terminal simulator!',
       'Type `help` to list commands.',
       '\n',
       'user@web:~$ '
     ];
-    let lineIndex = 0;
-    let charIndex = 0;
+    let lineIndex = 0, charIndex = 0;
 
     function typeLine() {
       if (lineIndex >= lines.length) return;
-      const currentLine = lines[lineIndex];
-      if (charIndex < currentLine.length) {
-        term.write(currentLine.charAt(charIndex));
-        charIndex++;
+      const current = lines[lineIndex];
+      if (charIndex < current.length) {
+        term.write(current[charIndex++]);
         setTimeout(typeLine, 50);
       } else {
         term.write('\r\n');
@@ -68,18 +76,15 @@
         setTimeout(typeLine, 500);
       }
     }
-
-    // Start typing simulation
     typeLine();
 
-    // Simple command handling
+    // Handle user input
     term.onKey(e => {
       const ev = e.domEvent;
       const printable = !ev.altKey && !ev.ctrlKey && !ev.metaKey;
-      if (ev.keyCode === 13) {  // Enter
+      if (ev.key === 'Enter') {
         term.write('\r\nuser@web:~$ ');
-      } else if (ev.keyCode === 8) { // Backspace
-        // Do not delete prompt
+      } else if (ev.key === 'Backspace') {
         if (term._core.buffer.x > 13) term.write('\b \b');
       } else if (printable) {
         term.write(e.key);
