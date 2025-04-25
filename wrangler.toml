@@ -13,6 +13,34 @@ command = "cargo install worker-build && worker-build --release"
 [env.dev]
 build = { command = "cargo install worker-build && worker-build --dev" }
 
+[env.production]
+routes = [
+  { pattern = "bakrie.ac.id.cf.netorare.web.id",            custom_domain = true },
+  { pattern = "untar.ac.id.cf.netorare.web.id",             custom_domain = true },
+  { pattern = "unnes.ac.id.cf.netorare.web.id",             custom_domain = true },
+  { pattern = "web.poe.garena.com.cf.netorare.web.id",      custom_domain = true },
+  { pattern = "axis.udemy.com.cf.netorare.web.id",          custom_domain = true },
+  { pattern = "ava.game.naver.com.cf.netorare.web.id",      custom_domain = true },
+  { pattern = "df.game.naver.com.cf.netorare.web.id",       custom_domain = true },
+  { pattern = "quiz.vidio.com.cf.netorare.web.id",          custom_domain = true },
+  { pattern = "quiz.int.vidio.com.cf.netorare.web.id",      custom_domain = true },
+  { pattern = "graph.instagram.com.cf.netorare.web.id",     custom_domain = true },
+  { pattern = "investors.spotify.com.cf.netorare.web.id",   custom_domain = true },
+  { pattern = "cache.netflix.com.cf.netorare.web.id",       custom_domain = true },
+  { pattern = "creativeservices.netflix.com.cf.netorare.web.id", custom_domain = true },
+  { pattern = "support.zoom.us.cf.netorare.web.id",         custom_domain = true },
+  { pattern = "zaintest.vuclip.com.cf.netorare.web.id",     custom_domain = true },
+  { pattern = "live.iflix.com.cf.netorare.web.id",         custom_domain = true },
+  { pattern = "io.ruangguru.com.cf.netorare.web.id",        custom_domain = true },
+  { pattern = "data.mt.cf.netorare.web.id",                 custom_domain = true },
+  { pattern = "www.udemy.com.cf.netorare.web.id",           custom_domain = true },
+  { pattern = "beta.zoom.us.cf.netorare.web.id",            custom_domain = true },
+  { pattern = "api.quipper.com.cf.netorare.web.id",         custom_domain = true },
+  { pattern = "app.midtrans.com.cf.netorare.web.id",        custom_domain = true },
+  { pattern = "edu.ruangguru.com.cf.netorare.web.id",       custom_domain = true },
+  { pattern = "app.gopay.co.id.cf.netorare.web.id",         custom_domain = true }
+]
+
 [vars]
 UUID = "2d4c200c-21bf-11f0-9aaf-6f37010b8baf"
 MAIN_PAGE_URL = "https://raw.githubusercontent.com/SonzaiEkkusu/Siren/refs/heads/master/web/index.html"
