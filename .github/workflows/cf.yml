@@ -2,7 +2,6 @@ name: cf workers
 
 on:
   workflow_dispatch:
-
   push:
     branches:
       - main
@@ -16,7 +15,24 @@ jobs:
     environment: cf
     steps:
       - uses: actions/checkout@v3
-      - name: deploy
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+          cache: 'npm'
+      
+      - name: Install dependencies
+        run: npm ci
+      
+      - name: Build with bulk memory support
+        run: |
+          # Jika menggunakan tool yang memerlukan flag khusus
+          # Tambahkan flag --enable-bulk-memory jika menggunakan Binaryen
+          npm run build
+      
+      - name: Deploy to Cloudflare Workers
         uses: cloudflare/wrangler-action@v3
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          command: deploy
